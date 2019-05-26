@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        
+            <title>reveal.js</title>
+        
+            <link rel="stylesheet" href="css/reset.css" />
+            <link rel="stylesheet" href="css/reveal.css" />
+            <link rel="stylesheet" href="css/theme/black.css" />
+            <link rel="stylesheet" href="css/style.css" />
+        
+            <!-- Theme used for syntax highlighting of code -->
+            <link rel="stylesheet" href="lib/css/monokai.css" />
+        
+            <!-- Printing and PDF exports -->
+            <script>
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.type = 'text/css';
+              link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+              document.getElementsByTagName('head')[0].appendChild(link);
+            </script>
+          </head>
+          <body>
+            
+            <div class="reveal">
+              <div class="slides">
+
+                <section>
+                  <p>MongoDB</p>
+                </section>
+
+                <section>
+                  <img src="img/SQL-MongoDB.PNG" />
+                </section>
+
+                <section>
+                  <section>
+                    <p>Data Types</p>
+                    <ul>
+                      <li>symbol</li>
+                      <li>timestamp</li>
+                      <li>min/max</li>
+                      <li>regular expression</li>
+                      <li>code</li>
+                      <li>binary data</li>
+                      <li>date</li>
+                      <li>object ID</li>
+                    </ul>
+                  </section>
+
+                  <section>Example BSON document</section>
+
+                  <section>
+                    <pre><code data-trim data-noescape>
+                      {
+                        _id: ObjectId(7df78ad8902c)
+                        title: 'MongoDB Overview', 
+                        description: 'MongoDB is no sql database',
+                        url: 'http://www.tutorialspoint.com',
+                        tags: ['mongodb', 'database', 'NoSQL'],
+                        comments: 	
+                           {
+                              user:'user1',
+                              message: 'My first comment',
+                              dateCreated: new Date(2011,1,20,2,15),
+                              like: 0 
+                           }
+                       }
+                    </code></pre>
+                  </section>
+                </section>
+
+                <section>
+                  <p>Advantages</p>
+                  <ul>
+                      <li>Fast</li>
+                      <li>Horizontal Scale</li>
+                      <li>Doesn't contain schemas</li>
+                      <li>Agregation</li>
+                      <li>Dinamic request(document-based query)</li>
+                      <li>Supports a big amount of data</li>
+                      <li>Support Agile</li>         
+                  </ul>
+                </section>
+
+                <section>
+                  <section><p>Command</p></section>
+
+                  <section>
+                    <ul>
+                      <p>db.collection_name.command</p>
+                      <li><span>db</span> &mdash; information about database</li>
+                      <li><span>collection_name</span> &mdash; name of collection</li>
+                      <li><span>command</span> &mdash; JavaScript-function</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <ul>
+                      <p>Basic Command</p>
+
+                      <ul><p>Create</p>
+                      <li><span>>use DATABASE</span> &mdash; create database</li>
+                      <li><span>>db.createCollection(name, options)</span></li>
+                      <li><span>>db.collection_name.insert(document) </span></li>
+                      </ul>
+
+                      <ul><p>Read</p>
+                      <li><span>>db</span> &mdash; to check your currently selected database</li>
+                      <li><span>>show dbs </span> &mdash; to check your databases list</li>
+                      </ul>
+
+                      <ul><p>Delete</p>
+                      <li><span>>db. dropDatabase() </span> &mdash; delete the selected database</li>
+                      <li><span>>db.collection_name.drop() </span></li>
+                      <li><span>>db.collection_name.remove(DELLETION_CRITTERIA)</span></li>
+                      </ul>
+
+                    </ul>  
+                  </section>
+
+                  <section>
+                    <ul> 
+                      <p>The more interesting method</p>
+                      <li><span>>db.collection_name.find</span>($lt, $lte, $gt, $gte, $ne, $and, $or)<br>
+                        <pre><code data-trim data-noescape>
+                            >db.collection_name.find(
+                              {
+                                 $and: [
+                                    {key1: value1}, {key2:value2}
+                                 ]
+                              }
+                           )
+                           </code></pre>
+                      
+                    
+                        <pre><code data-trim data-noescape>
+                            >db.collection_name.find(
+                              {
+                                 $or: [
+                                    {key1: value1}, {key2:value2}
+                                 ]
+                              }
+                           )
+                           </code></pre></li>
+                      <li><span>>db.collection_name.update(SELECTION_CRITERIA, UPDATED_DATA)</span></li>
+                      <li>>db.COLLECTION_NAME.find().<span>limit(NUMBER)</span></li>
+                      <li>>db.COLLECTION_NAME.find().<span>sort({KEY:1})</span></li>
+                      <li><span>>db.collection_name.ensureIndex({KEY:1})</span></li>
+                      <li><span>>db.collection_name.aggregate(AGGREGATE_OPERATION)</span><br>($sum, $avg, $min, $max, $push, $addT, $first, $last)</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                      <p>Agregation</p>
+                      <pre><code data-trim data-noescape>
+                            > db.developers.find().pretty()
+                            {
+                              "_id" : ObjectId("5815f4e735ee883c37ac8b4d"),
+                              "title" : "Eugene Suleimanov",
+                              
+                              "salary" : 3500
+                            }
+                            {
+                              "_id" : ObjectId("5815f4ec35ee883c37ac8b4e"),
+                              "title" : "Ivan Ivanov",
+                              "salary" : 3500
+                            }   
+                        </code></pre>
+
+                        <pre><code data-trim data-noescape style='font-size:0.65em'>
+                            > db.developers.aggregate( [ {$group :{ _id : "Developers", total_salary: { $sum : "$salary" }}} ] )
+        
+                            { "_id" : "Developers", "total_salary" : 10500 }
+                            
+                        </code></pre>
+                 </section>
+                 
+                </section>
+                 <section>
+                    <section>
+                      <p>Replication</p>
+                    </section>
+
+                    <section>
+                        <img src='img/replication.png'>
+                    </section>
+
+                    <section>
+                          <p>Sharding</p>
+                    </section>
+                  </section>
+
+                  <section>
+                    <ul>
+                      <p>Links</p>
+                      <li><a href="https://docs.mongodb.com/" target='_blank'>official documentation</a></li>
+                      <li><a href="https://university.mongodb.com/" target='_blank'>univercity</a></li>
+                      <li><a href="https://www.tutorialspoint.com/mongodb/index.htm" target='_blank'>https://www.tutorialspoint.com</a></li>
+                    </ul>
+                  </section>
+                </section>
+              </div>
+            </div>
+        
+            <script src="js/reveal.js"></script>
+        
+            <script>
+              // More info about config & dependencies:
+              // - https://github.com/hakimel/reveal.js#configuration
+              // - https://github.com/hakimel/reveal.js#dependencies
+              Reveal.initialize({
+                dependencies: [
+                  { src: 'plugin/markdown/marked.js' },
+                  { src: 'plugin/markdown/markdown.js' },
+                  { src: 'plugin/notes/notes.js', async: true },
+                  { src: 'plugin/highlight/highlight.js', async: true },
+                ],
+              });
+            </script>
+          </body>
+        </html>
+        
+</body>
+</html>
